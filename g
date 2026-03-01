@@ -98,7 +98,7 @@ echo "              C120:  $c120"
 echo "Текущая вместимось:  $current_fill"
 echo "   Размер упаковки:  $max_fill"
 echo "       Число гнезд:  $per_stroke"
-echo "       время цикла:  $cycle_time "
+echo "       время цикла:  $cycle_time"
 echo "       время ящика:  $tsikl"
 echo "_________________"
 echo $NC
