@@ -30,11 +30,6 @@ check_package() {
 
 if [[ "$all_installed" == "no" && "$scip_install" == "no" ]]; then
 
-
-if [ "$1" ];then
-language="$1"
-sed -i -e s"/language=\".*/language=\"${language}\"/"g "$0"
-else
 echo "выбери язык - помошник"
 echo "1) English"
 echo "2) Русский"
@@ -56,6 +51,7 @@ language="np"
 else
 language="en"
 fi
+sed -i -e s"/language=\".*/language=\"${language}\"/"g "$0"
 
 
 
