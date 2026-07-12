@@ -26,7 +26,7 @@ check_package() {
 }
 
 
-if [ "$all_installed" == "no" && "$scip_install" == "no" ]; then
+if [[ "$all_installed" == "no" && "$scip_install" == "no" ]]; then
 check_package bc bc
 check_package tput ncurses-utils
 check_package vi vis
