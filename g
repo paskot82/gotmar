@@ -18,7 +18,7 @@ check_package() {
             echo "Ошибка: не удалось установить '$pkg'."
             echo "попробуйте установить вручную:"
             echo "apt-get install -y $prog"
-            echo "   (pkg install -y "$pkg") 
+            echo "   (pkg install -y \"$pkg\") "
             echo "или воспользуйтесь подсказкой"
             exit 1
         fi
