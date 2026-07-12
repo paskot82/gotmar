@@ -1,6 +1,7 @@
 #!/bin/bash
 # box.sh <номер_ящика> <время> [current_fill]
 
+all_installed="no"
 
 check_package() {
     local prog="$1"
@@ -19,9 +20,18 @@ check_package() {
     fi
 }
 
+
+if [ "$all_installed" == "no" ]; then
 check_package bc bc
 check_package tput ncurses-utils
 check_package vi vis
+else
+echo "all installed"
+sleep 2
+
+fi
+
+
 
 echo "Все необходимые программы установлены."
 sleep 2
