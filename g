@@ -32,6 +32,8 @@ check_package tput ncurses-utils
 check_package vi vis
 sed -i -e s"/all_installed=\"no\"/all_installed=\"yes\"/"g "$0"
 cp "$0" ../
+cd ..
+ln -s "./g" $PREFIX/bin/g
 else
 echo "all installed"
 sleep 2
