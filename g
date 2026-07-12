@@ -2,6 +2,7 @@
 # box.sh <номер_ящика> <время> [current_fill]
 
 all_installed="no"
+scip_install="no"
 
 check_package() {
     local prog="$1"
@@ -15,13 +16,17 @@ check_package() {
 
         if ! command -v "$prog" >/dev/null 2>&1; then
             echo "Ошибка: не удалось установить '$pkg'."
+            echo "попробуйте установить вручную:"
+            echo "apt-get install -y $prog"
+            echo "   (pkg install -y "$pkg") 
+            echo "или воспользуйтесь подсказкой"
             exit 1
         fi
     fi
 }
 
 
-if [ "$all_installed" == "no" ]; then
+if [ "$all_installed" == "no" && "$scip_install" == "no" ]; then
 check_package bc bc
 check_package tput ncurses-utils
 check_package vi vis
