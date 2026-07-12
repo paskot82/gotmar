@@ -3,6 +3,8 @@
 
 all_installed="no"
 scip_install="no"
+language="np"
+add_ydarov=3 # сколько ударов идет после "0" до смены ящика
 
 check_package() {
     local prog="$1"
@@ -27,6 +29,9 @@ check_package() {
 
 
 if [[ "$all_installed" == "no" && "$scip_install" == "no" ]]; then
+if [ "$1" ];then
+language="$1"
+fi
 check_package bc bc
 check_package tput ncurses-utils
 check_package vi vis
@@ -60,8 +65,6 @@ time_input=$2       # время (ЧЧ:ММ)
 current_fill=$3     # текущая загрузка (необязательный параметр)
 
 
-language="np"
-add_ydarov=3 # сколько ударов идет после "0" до смены ящика
 
 for_test() {
 box_num="3"
