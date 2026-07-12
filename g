@@ -20,7 +20,7 @@ check_package() {
 }
 
 check_package bc bc
-check_package tput ncurses
+check_package tput
 check_package vis
 
 echo "Все необходимые программы установлены."
