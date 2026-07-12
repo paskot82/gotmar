@@ -29,10 +29,41 @@ check_package() {
 
 
 if [[ "$all_installed" == "no" && "$scip_install" == "no" ]]; then
+
+
 if [ "$1" ];then
 language="$1"
 sed -i -e s"/language=\".*/language=\"${language}\"/"g "$0"
+else
+echo "выбери язык - помошник"
+echo "1) English"
+echo "2) Русский"
+echo "3) Български"
+echo "4) Непальский"
+echo
+sleep 3
+
+read chois_lang
+
+if [ ${chois_lang} == "1" ];then
+language="en"
+elif [ ${chois_lang} == "2" ];then
+language="ru"
+elif [ ${chois_lang} == "3" ];then
+language="bl"
+elif [ ${chois_lang} == "4" ];then
+language="np"
+else
+language="en"
 fi
+
+
+
+fi
+
+
+
+
 check_package bc bc
 check_package tput ncurses-utils
 check_package vi vis
