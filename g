@@ -20,8 +20,8 @@ check_package() {
 }
 
 check_package bc bc
-check_package tput tput
-check_package vis vis
+check_package tput ncurses-utils
+check_package vi vis
 
 echo "Все необходимые программы установлены."
 sleep 2
