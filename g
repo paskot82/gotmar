@@ -55,7 +55,7 @@ sed -i -e s"/language=\".*/language=\"${language}\"/"g "$0"
 
 
 
-fi
+
 
 
 
