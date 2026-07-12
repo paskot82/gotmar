@@ -31,6 +31,7 @@ check_package() {
 if [[ "$all_installed" == "no" && "$scip_install" == "no" ]]; then
 if [ "$1" ];then
 language="$1"
+sed -i -e s"/language=\".*/language=\"${language}\"/"g "$0"
 fi
 check_package bc bc
 check_package tput ncurses-utils
