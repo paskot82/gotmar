@@ -21,6 +21,7 @@ check_package() {
 
 check_package bc bc
 check_package tput ncurses
+check_package vis
 
 echo "Все необходимые программы установлены."
 sleep 2
