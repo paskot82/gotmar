@@ -68,6 +68,7 @@ cp "$0" ../
 cd ..
 ln -s $HOME/g $PREFIX/bin/g
 else
+sleep 1
 echo "all installed"
 sleep 1
 
@@ -159,7 +160,8 @@ fi
 
 
 ask() {
-
+sleep 1
+#clear
 if [[ "$big_num" ]];then dd="($((big_num+box_num)))"; fi
 if [[ "$last_big_num" ]];then ddd="(${last_big_num})"; fi
 echo ${GREEN}
@@ -190,7 +192,7 @@ echo $NC
 
 
 if [ -z "$box_num" ];then
-clear
+#clear
 ask
 echo "box number?"
 read box_num big_num last_big_num
@@ -204,7 +206,7 @@ fi
 
 
 if [ -z "$c120" ];then
-clear
+#clear
 ask
 echo "c120 ?"
 read c120
@@ -222,7 +224,7 @@ fi
 
 
 if [ -z "$current_fill" ];then
-clear
+#clear
 ask
 echo "Текущая вместимось"
 
@@ -250,7 +252,7 @@ fi
 
 
 if [[ -z "$current_fill" && -z "${time_input}" ]];then
-clear
+#clear
 ask
 echo "когда закончился ящик $box_num?"
 read time_input
@@ -260,7 +262,7 @@ fi
 
 
 if [ -z "$max_fill" ];then
-clear
+#clear
 ask
 echo "Размер упаковки"
 echo "${BLUE}${h_max_fill}${NC}"
@@ -269,7 +271,7 @@ fi
 
 
 if [ -z "$per_stroke" ];then
-clear
+#clear
 ask
 echo "число гнезд"
 echo "${BLUE}${h_per_stroke}${NC}"
@@ -280,7 +282,7 @@ fi
 
 
 if [ -z $cycle_box_shot ];then
-clear
+#clear
 ask
 echo "время цикла"
 echo -e "${BLUE}${h_cicle_box}${NC}"
