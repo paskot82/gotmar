@@ -41,7 +41,7 @@ echo "2) Русский"
 echo "3) Български"
 echo "4) Непальский"
 echo
-sleep 3
+#sleep 3
 
 read chois_lang
 
