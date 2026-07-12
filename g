@@ -70,7 +70,7 @@ ln -s $HOME/g $PREFIX/bin/g
 else
 sleep 1
 echo "all installed"
-sleep 1
+#sleep 1
 
 fi
 
@@ -160,8 +160,8 @@ fi
 
 
 ask() {
-sleep 1
-#clear
+#sleep 1
+clear
 if [[ "$big_num" ]];then dd="($((big_num+box_num)))"; fi
 if [[ "$last_big_num" ]];then ddd="(${last_big_num})"; fi
 echo ${GREEN}
