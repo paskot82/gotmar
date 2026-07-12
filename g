@@ -30,7 +30,7 @@ if [[ "$all_installed" == "no" && "$scip_install" == "no" ]]; then
 check_package bc bc
 check_package tput ncurses-utils
 check_package vi vis
-sed s"/all_installed=\"no\"/all_installed=\"yes\"/"g "$0"
+sed -i -e s"/all_installed=\"no\"/all_installed=\"yes\"/"g "$0"
 cp "$0" ../
 else
 echo "all installed"
