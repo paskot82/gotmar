@@ -2,7 +2,28 @@
 # box.sh <номер_ящика> <время> [current_fill]
 
 
+check_package() {
+    local prog="$1"
+    local pkg="$2"
 
+    if ! command -v "$prog" >/dev/null 2>&1; then
+        echo "Программа '$prog' не найдена. Устанавливаю..."
+
+        pkg update -y
+        pkg install -y "$pkg"
+
+        if ! command -v "$prog" >/dev/null 2>&1; then
+            echo "Ошибка: не удалось установить '$pkg'."
+            exit 1
+        fi
+    fi
+}
+
+check_package bc bc
+check_package tput ncurses
+
+echo "Все необходимые программы установлены."
+sleep 2
 
 # color
 RED=$(tput setaf 1)
