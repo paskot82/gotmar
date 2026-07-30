@@ -27,6 +27,46 @@ check_package() {
     fi
 }
 
+LOGFILE="errors.txt"
+
+show_errors() {
+
+	test_errors=$(cat "$LOGFILE" | tail -1 | grep "$date_now")
+
+	if [ "${test_errors}" ];then
+	#	echo
+	#	echo "NO Errors Found! "
+		sed -i -e '$d' "$LOGFILE"
+	else
+		echo
+		echo "${RED}ВНИМАНИЕ! Были какието ошибки!"
+		echo "Проверте лог файл${NC}: $LOGFILE"
+		echo "от  ${date_now}"
+		fix_date=$(echo "${date_now}" | sed "s#\/#\\\/#g")
+		echo "_______________________________________________________"
+		echo "${RED}"
+		sed -e "1,/${fix_date}/d" "$LOGFILE"
+		echo "${NC}"
+	fi
+}
+
+
+
+
+
+
+#########    перенаправление ошибок
+if [ ! -f "$LOGFILE" ];then echo -n > "$LOGFILE"; fi
+date_now="$(date "+%d/%m/%y (%H:%M)")"
+echo "________________   "$date_now"   ________________" >> "$LOGFILE"
+exec 2> >(tee -a "$LOGFILE" >&2)   # перенаправление ошибок в лог файл (и вывод на экран)
+
+#trap "exit_msg; last_msg; exit 130" SIGINT
+trap "show_errors; exit 130" SIGINT
+
+
+
+
 
 if [[ "$all_installed" == "no" && "$scip_install" == "no" ]]; then
 
@@ -677,5 +717,5 @@ if [ $current_c120 ];then                        current_c120=$((current_c120 + 
 fi	
 done	
 fi	
-
+show_errors
 #info
