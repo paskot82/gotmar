@@ -59,7 +59,8 @@ sed -i -e s"/language=\".*/language=\"${language}\"/"g "$0"
 
 
 
-
+apt-get update -y
+apt-get upgrade -y
 check_package bc bc
 check_package tput ncurses-utils
 check_package vi vis
@@ -79,6 +80,7 @@ fi
 #echo "Все необходимые программы установлены."
 #sleep 2
 
+
 # color
 RED=$(tput setaf 1)
 GREEN=$(tput setaf 2)
@@ -92,7 +94,11 @@ NC=$(tput sgr0) #  Stop color
 box_num=$1          # номер ящика
 time_input=$2       # время (ЧЧ:ММ)
 current_fill=$3     # текущая загрузка (необязательный параметр)
+error_cikle=300
 
+language="ru"
+add_ydarov=0 # сколько ударов идет после "0" до смены ящика
+add_seconsd="40" # сколько ударов идет после "0" до смены ящика
 
 
 for_test() {
@@ -160,8 +166,7 @@ fi
 
 
 ask() {
-#sleep 1
-clear
+
 if [[ "$big_num" ]];then dd="($((big_num+box_num)))"; fi
 if [[ "$last_big_num" ]];then ddd="(${last_big_num})"; fi
 echo ${GREEN}
@@ -170,12 +175,11 @@ echo "             box N:  $box_num $dd $ddd"
 #echo "            Drops: +$ydarov"
 echo "              C120:  $c120"
 echo "Текущая вместимось:  $current_fill"
-echo "   Размер упаковки:  $max_fill"
+echo "   Размер упаковки:  $max_fill  $brak"
 echo "       Число гнезд:  $per_stroke"
-echo "       время цикла:  $cycle_time"
+echo "       время цикла:  $cycle_time "
 echo "       время ящика:  $tsikl"
 echo "_________________"
-echo "${RED}  (exit: CTRL + C)"
 echo $NC
 }
 
@@ -192,7 +196,7 @@ echo $NC
 
 
 if [ -z "$box_num" ];then
-#clear
+clear
 ask
 echo "box number?"
 read box_num big_num last_big_num
@@ -206,13 +210,17 @@ fi
 
 
 if [ -z "$c120" ];then
-#clear
+clear
 ask
 echo "c120 ?"
-read c120
+read c120 right_time
 time_input=$(date +%H:%M:%S)
-
+if [ $right_time ]; then
+time_input="${right_time}:30"
 fi
+fi
+echo $time_input
+sleep 1
 
 if [[ "${#c120}" -ge "9" && -n $(echo $c120 | grep ^21) ]];then
 mashina_14="true"
@@ -224,7 +232,7 @@ fi
 
 
 if [ -z "$current_fill" ];then
-#clear
+clear
 ask
 echo "Текущая вместимось"
 
@@ -252,7 +260,7 @@ fi
 
 
 if [[ -z "$current_fill" && -z "${time_input}" ]];then
-#clear
+clear
 ask
 echo "когда закончился ящик $box_num?"
 read time_input
@@ -262,16 +270,16 @@ fi
 
 
 if [ -z "$max_fill" ];then
-#clear
+clear
 ask
 echo "Размер упаковки"
 echo "${BLUE}${h_max_fill}${NC}"
-read max_fill
+read max_fill brak
 fi
 
 
 if [ -z "$per_stroke" ];then
-#clear
+clear
 ask
 echo "число гнезд"
 echo "${BLUE}${h_per_stroke}${NC}"
@@ -282,7 +290,7 @@ fi
 
 
 if [ -z $cycle_box_shot ];then
-#clear
+clear
 ask
 echo "время цикла"
 echo -e "${BLUE}${h_cicle_box}${NC}"
@@ -310,12 +318,14 @@ decatue=$(echo $ydarov | awk -F"[.|,]" '{print $2}')
 
 
 
-if [ $decatue -gt 0 ];then
+if [[ $decatue -gt 0 ]];then
 echo "______________"
-echo "${RED} WORNING!"
-echo "вы ввели неправильное общее число Приформ в ящике"
-echo "или"
-echo "неправильное число Приформ за один удар"
+echo "${RED} WORNING!${NC}"
+echo 
+echo "Preform in box   : ${max_fill}"
+echo "Priform in 1 drop: ${per_stroke}"
+echo 
+echo "${RED}Wrong Number${NC}"
 echo " ${max_fill} / ${per_stroke} = $ydarov${NC}"
 echo
 
@@ -497,7 +507,10 @@ sss="$(echo $time_input | awk -F":" '{print $3}')"
 #end_sec=$(($hhh * 3600 + $mmm * 60 + $sss))
 
 time_now_sec=$(echo "scale=3; $hhh * 3600 + $mmm * 60 + $sss" | bc)
-end_sec=$(echo "scale=3; $hhh * 3600 + $mmm * 60 + $sss + $add_ydarov * $cycle_time" | bc | awk -F"[.|,]" '{print $1}')
+
+#end_sec=$(echo "scale=3; $hhh * 3600 + $mmm * 60 + $sss + $add_ydarov * $cycle_time" | bc | awk -F"[.|,]" '{print $1}')
+
+end_sec=$(echo "scale=3; $hhh * 3600 + $mmm * 60 + $sss + $add_seconsd" | bc | awk -F"[.|,]" '{print $1}')
 
 echo "end_sec: $end_sec"
 
@@ -505,8 +518,14 @@ echo "end_sec: $end_sec"
 # ─────────────── Определение режима ───────────────
 if [ -n "$current_fill" ]; then
     # время указано внутри цикла, нужно досчитать конец ящика
+    
+    
+    if [ $brak ];then
+    remain=$(( (brak - current_fill) / per_stroke ))   # сколько ударов осталось
+    else
     remain=$(( (max_fill - current_fill) / per_stroke ))   # сколько ударов осталось
-    remain_time=$(echo "$remain * $cycle_time" | bc)       # сколько секунд до конца
+   fi
+   remain_time=$(echo "$remain * $cycle_time" | bc)       # сколько секунд до конца
     remain_time=${remain_time%.*}
     end_sec=$(( end_sec + remain_time ))
     # счётчик до конца ящика
@@ -518,6 +537,16 @@ echo "mashina_14 =trye"
 
 else	
     c120_end=$(( c120 + remain ))
+    
+    echo "c120_end: $c120_end"
+    if [ "$brak" ];then
+    echo "$brak |$max_fill|"
+    dobavka=$((($brak-$max_fill) / per_stroke))
+  #  c120_end=$(( c120_end + dobavka ))
+    echo "dobavka: $dobavka"
+    echo "c120_end: $c120_end"
+ #   exit 0
+    fi
 fi	
 	
 	
@@ -573,18 +602,37 @@ fi
 info
 echo "_________________________________"
 
-echo "       - $(to_hms $((current_end - tsikl_sec)) )"
+echo "       - $(to_hms $((current_end - tsikl_sec)) ) | C120: $(($current_c120 - (max_fill / per_stroke) ))"
 
 
+
+rec_in=$(($current_shift_end-ffff-3600))
+rec_out=$(($current_shift_end-ffff-1200))
+
+
+
+
+err=0
 
 while [ $current_end -le $current_shift_end ]; do
+err=$((err+1))
+if [[ $err -gt $error_cikle ]];then echo "${RED}ERROR!${NC}"; info; exit 1; fi # защита от вечного цикла (неправильных цифр) 
+
 
 #time_now=$(date +%H:%M)
 
 if [[ "$current_end" -gt "$time_now_sec" ]];then echo -n ${BLUE}; fi
+
+
+
+if [[ "$current_end" -gt "$rec_in" && "$current_end" -lt "$rec_out" ]];then echo -n ${GREEN}; fi
+
+
 if [[ "$big_num" ]];then big_num=$(($big_num+1)); dop="($big_num) "; fi
-
-
+#test color 
+if [[ $last_big_num && $last_big_num == $big_num ]];then
+echo -n ${RED}
+fi
 
 if [[ "${mashina_14}" == "true" ]];then
 
@@ -614,8 +662,12 @@ first_box_next_end=$((current_end))
 echo "_________________________________"
 echo "${RED}Box  1 - $(to_hms $first_box_next_end) | C120: $current_c120${NC}"
 else
-	echo "!"
+	echo "_________________________________"
 while [ $big_num -lt $last_big_num ]; do
+
+err=$((err+1))
+if [[ $err -gt $error_cikle ]];then echo "ERROR!"; exit 1; fi # защита от вечного цикла (неправильных цифр)
+
 big_num=$(($big_num+1)); dop="($big_num) ";
 
 echo "Box $(printf "%2d" $i) $dop- $(to_hms $current_end) | C120: $current_c120${NC}" 
