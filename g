@@ -27,42 +27,6 @@ check_package() {
     fi
 }
 
-LOGFILE="errors.txt"
-
-show_errors() {
-
-	test_errors=$(cat "$LOGFILE" | tail -1 | grep "$date_now")
-
-	if [ "${test_errors}" ];then
-	#	echo
-	#	echo "NO Errors Found! "
-		sed -i -e '$d' "$LOGFILE"
-	else
-		echo
-		echo "${RED}ВНИМАНИЕ! Были какието ошибки!"
-		echo "Проверте лог файл${NC}: $LOGFILE"
-		echo "от  ${date_now}"
-		fix_date=$(echo "${date_now}" | sed "s#\/#\\\/#g")
-		echo "_______________________________________________________"
-		echo "${RED}"
-		sed -e "1,/${fix_date}/d" "$LOGFILE"
-		echo "${NC}"
-	fi
-}
-
-
-
-
-
-
-#########    перенаправление ошибок
-if [ ! -f "$LOGFILE" ];then echo -n > "$LOGFILE"; fi
-date_now="$(date "+%d/%m/%y (%H:%M)")"
-echo "________________   "$date_now"   ________________" >> "$LOGFILE"
-exec 2> >(tee -a "$LOGFILE" >&2)   # перенаправление ошибок в лог файл (и вывод на экран)
-
-#trap "exit_msg; last_msg; exit 130" SIGINT
-trap "show_errors; exit 130" SIGINT
 
 
 
@@ -105,11 +69,14 @@ check_package bc bc
 check_package tput ncurses-utils
 check_package vi vis
 sed -i -e s"/all_installed=\"no\"/all_installed=\"yes\"/"g "$0"
-cp "$0" ../
+cp "$0" $HOME/
 cd ..
 ln -s $HOME/g $PREFIX/bin/g
+exit 0
+
+
 else
-sleep 1
+#sleep 1
 echo "all installed"
 #sleep 1
 
@@ -119,6 +86,46 @@ fi
 
 #echo "Все необходимые программы установлены."
 #sleep 2
+
+
+
+LOGFILE="errors.txt"
+
+show_errors() {
+
+	test_errors=$(cat "$LOGFILE" | tail -1 | grep "$date_now")
+
+	if [ "${test_errors}" ];then
+	#	echo
+	#	echo "NO Errors Found! "
+		sed -i -e '$d' "$LOGFILE"
+	else
+		echo
+		echo "${RED}ВНИМАНИЕ! Были какието ошибки!"
+		echo "Проверте лог файл${NC}: $LOGFILE"
+		echo "от  ${date_now}"
+		fix_date=$(echo "${date_now}" | sed "s#\/#\\\/#g")
+		echo "_______________________________________________________"
+		echo "${RED}"
+		sed -e "1,/${fix_date}/d" "$LOGFILE"
+		echo "${NC}"
+	fi
+}
+
+
+
+
+
+
+#########    перенаправление ошибок
+if [ ! -f "$LOGFILE" ];then echo -n > "$LOGFILE"; fi
+date_now="$(date "+%d/%m/%y (%H:%M)")"
+echo "________________   "$date_now"   ________________" >> "$LOGFILE"
+exec 2> >(tee -a "$LOGFILE" >&2)   # перенаправление ошибок в лог файл (и вывод на экран)
+
+#trap "exit_msg; last_msg; exit 130" SIGINT
+trap "show_errors; exit 130" SIGINT
+
 
 
 # color
@@ -261,7 +268,7 @@ time_input="${right_time}:30"
 fi
 fi
 echo $time_input
-sleep 1
+#sleep 1
 
 if [[ "${#c120}" -ge "9" && -n $(echo $c120 | grep ^21) ]];then
 mashina_14="true"
