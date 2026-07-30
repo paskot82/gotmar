@@ -220,6 +220,7 @@ echo "       Число гнезд:  $per_stroke"
 echo "       время цикла:  $cycle_time "
 echo "       время ящика:  $tsikl"
 echo "_________________"
+echo "${YELLOW} (exit: CTRL+C)"
 echo $NC
 }
 
