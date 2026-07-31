@@ -174,7 +174,7 @@ h_max_fill="(box capacity?)"
 h_per_stroke="(how many items per stroke?)"
 h_cicle_box="(cycle time per stroke)\n       or\n (time to fill one box)"
 h_sosed="How many preforms are in the next box?"
-
+h_brack="(if there was brack in box and the total number of preforms was changed,\n enter the original number of preforms + changed number)\n ${RED}(example: 23040 24480) ${NC}"
 elif [ $language == "ru" ];then
 
 h_current_fill="(сколько уже в ящике?)"
@@ -182,6 +182,7 @@ h_max_fill="(вместимость ящика?)"
 h_per_stroke="(сколько изделий за удар?)"
 h_cicle_box="(время цикла одного удара)\n       или\n (время наполнения 1 ящика)"
 h_sosed="сколько уже приформ в соседнем ящике?"
+h_brack="(если был брак и изменено общее число приформ,\n то пишем число приформ + изменëнное число приформ) \n ${RED}(пример: 23040 24480) ${NC}"
 
 elif [ $language == "bl" ];then
 h_current_fill="(колко броя вече има в кутията?)"
@@ -189,6 +190,7 @@ h_max_fill="(капацитет на кутията?)"
 h_per_stroke="(колко изделия на един удар?)"
 h_cicle_box="(време на цикъл за един удар)\n       или\n (време за напълване на една кутия)"
 h_sosed="Колко преформи има вече в следващия кашон?"
+h_brack="(ако е имало брак в кашон и общият брой преформи е коригиран,\n въведете първоначалния брой, последван от коригирания брой)\n ${RED}(пример: 23040 24480) ${NC}"
 
 elif [ $language == "np" ];then
 h_current_fill="(box ma ahile kati chha?)"
@@ -196,7 +198,7 @@ h_max_fill="(box ko total kati ho?)"
 h_per_stroke="(ek choti ma kati ota jharchha?)"
 h_cicle_box="(ek stroke ko cycle time)\n       wa\n (ek box bharna lagne samay)"
  h_sosed="Arko bakasma ahile samma kati preform chha?"
-
+h_brack="(yadi doshpurna preformka kāraṇ kul preform sankhyā sachyāeko cha bhane,\n mūl sankhyā ra tyaspachi sachyāeko sankhyā pravishta garnuhos)\n ${RED}(udaharan: 23040 24480) ${NC}"
 fi
 
 
@@ -322,6 +324,7 @@ clear
 ask
 echo "Размер упаковки"
 echo "${BLUE}${h_max_fill}${NC}"
+echo "{$h_brack}"
 read max_fill brak
 fi
 
