@@ -174,7 +174,7 @@ h_max_fill="(box capacity?)"
 h_per_stroke="(how many items per stroke?)"
 h_cicle_box="(cycle time per stroke)\n       or\n (time to fill one box)"
 h_sosed="How many preforms are in the next box?"
-h_brack="(if there was brack in box and the total number of preforms was changed,\n enter the original number of preforms + changed number)\n ${RED}(example: 23040 24480) ${NC}"
+h_brack="\n\n(if there was brack in box\n and the total number of preforms was changed,\n enter the original number of preforms + changed number)\n ${RED}(example: 23040 24480) ${NC}"
 elif [ $language == "ru" ];then
 
 h_current_fill="(сколько уже в ящике?)"
