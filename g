@@ -71,7 +71,9 @@ check_package vi vis
 sed -i -e s"/all_installed=\"no\"/all_installed=\"yes\"/"g "$0"
 cp "$0" $HOME/
 cd ..
+if [ ! -f $PREFIX/bin/g ];then
 ln -s $HOME/g $PREFIX/bin/g
+fi
 exit 0
 
 
