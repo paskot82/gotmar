@@ -3,7 +3,7 @@
 
 all_installed="no"
 scip_install="no"
-language="np"
+language="np" # язык
 add_ydarov=3 # сколько ударов идет после "0" до смены ящика
 
 check_package() {
@@ -55,7 +55,7 @@ language="np"
 else
 language="en"
 fi
-sed -i -e s"/language=\".*/language=\"${language}\"/"g "$0"
+sed -i -e s"/language=\".*#/language=\"${language}\"/"g "$0"
 
 
 
