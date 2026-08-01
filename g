@@ -55,7 +55,7 @@ language="np"
 else
 language="en"
 fi
-sed -i -e s"/language=\".*#/language=\"${language}\"/"g "$0"
+sed -i -e s"/language=\".*#/language=\"${language}\" # язык/"g "$0"
 
 
 
@@ -212,7 +212,7 @@ fi
 
 
 ask() {
-
+sleep 2
 if [[ "$big_num" ]];then dd="($((big_num+box_num)))"; fi
 if [[ "$last_big_num" ]];then ddd="(${last_big_num})"; fi
 echo ${GREEN}
