@@ -171,7 +171,7 @@ h_max_fill="(box capacity?)"
 h_per_stroke="(how many items per stroke?)"
 h_cicle_box="(cycle time per stroke. ${RED}example: 7.93${BLUE})\n       or\n (time to fill one box. ${RED}example: 18:54${BLUE})"
 h_sosed="How many preforms are in the next box?"
-h_brack="\n ${RED}example: 23040 \n      or \n example: 23040 24480${NC} (+10 drops)"
+h_brack="\n ${RED}example: 23040 \n      or \n example: 23040 24480${NC} \n                (+10 drops)"
 elif [ $language == "ru" ];then
 
 h_current_fill="(сколько уже в ящике?)"
@@ -179,7 +179,7 @@ h_max_fill="(вместимость ящика?)"
 h_per_stroke="(сколько изделий за удар?)"
 h_cicle_box="(время цикла одного удара.${RED} пример: 7.93${BLUE})\n       или\n (время наполнения 1 ящика.${RED} пример: 18:56${BLUE})"
 h_sosed="сколько уже приформ в соседнем ящике?"
-h_brack="\n ${RED}пример: 23040 \n      or \n пример: 23040 24480${NC} (+10 ударов) "
+h_brack="\n ${RED}пример: 23040 \n      or \n пример: 23040 24480${NC} \n                (+10 ударов) "
 
 elif [ $language == "bl" ];then
 h_current_fill="(колко броя вече има в кутията?)"
@@ -187,7 +187,7 @@ h_max_fill="(капацитет на кутията?)"
 h_per_stroke="(колко изделия на един удар?)"
 h_cicle_box="(време на цикъл за един удар${RED} пример: 7.93${BLUE})\n       или\n (време за напълване на една кутия${RED} пример: 18:54${BLUE}))"
 h_sosed="Колко преформи има вече в следващия кашон?"
-h_brack="\n ${RED}пример: 23040 \n      or \n пример: 23040 24480${NC} (+10 удара) "
+h_brack="\n ${RED}пример: 23040 \n      or \n пример: 23040 24480${NC} \n                (+10 удара) "
 
 elif [ $language == "np" ];then
 h_current_fill="(box ma ahile kati chha?)"
@@ -195,7 +195,7 @@ h_max_fill="(box ko total kati ho?)"
 h_per_stroke="(ek choti ma kati ota jharchha?)"
 h_cicle_box="(ek stroke ko cycle time ${RED}example: 7.93${BLUE})\n       wa\n (ek box bharna lagne samay ${RED}example: 18:54${BLUE})"
  h_sosed="Arko bakasma ahile samma kati preform chha?"
-h_brack="\n ${RED}example: 23040 \n      or \n example: 23040 24480${NC} (+10 drops)"
+h_brack="\n ${RED}example: 23040 \n      or \n example: 23040 24480${NC} \n                (+10 drops)"
 fi
 
 
@@ -212,7 +212,7 @@ fi
 
 
 ask() {
-sleep 2
+
 if [[ "$big_num" ]];then dd="($((big_num+box_num)))"; fi
 if [[ "$last_big_num" ]];then ddd="(${last_big_num})"; fi
 echo ${GREEN}
