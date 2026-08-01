@@ -77,9 +77,6 @@ fi
 exit 0
 
 
-else
-
-
 fi
 
 
