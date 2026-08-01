@@ -55,7 +55,7 @@ language="np"
 else
 language="en"
 fi
-sed -i -e s"/language=\".*#/language=\"${language}\" # язык/"g "$0"
+sed -i -e s"/language=\".*#/language=\"${language}\" \# /"g "$0"
 
 
 
@@ -140,7 +140,7 @@ time_input=$2       # время (ЧЧ:ММ)
 current_fill=$3     # текущая загрузка (необязательный параметр)
 error_cikle=300
 
-language="ru"
+
 add_ydarov=0 # сколько ударов идет после "0" до смены ящика
 add_seconsd="40" # сколько ударов идет после "0" до смены ящика
 
@@ -508,26 +508,13 @@ fi
 
 
 info() {
-
-
-echo "   time_input:  $time_input"
-echo "         c120:  $c120"
-echo "     c120_end:  $c120_end"
-echo " current_c120:  $current_c120"
-echo "first_end_sec:  $first_end_sec ($(to_hms $first_end_sec))"
-echo "      end_sec:  $end_sec ($(to_hms $end_sec))"
-echo "    tsikl_sec:  $tsikl_sec ($(to_hms $tsikl_sec))"
-echo "      end_sec:  $end_sec  ($(to_hms $end_sec))"
-echo "  current_end:  $current_end  ($(to_hms $current_end))"
-echo "Preform in box:  $current_fill"
 echo
-echo
-
 echo ${GREEN}
 echo "            Shift: $cmena"
 echo "        __________"
 echo "            Drops: +$ydarov"
 echo "    Total Preform:  $max_fill"
+echo "     current_fill:  $current_fill"
 echo "Preform in 1 drop:  $per_stroke"
 echo "      Time 1 drop:  $cycle_time"
 echo "      Time 1  box:  $tsikl"
@@ -646,6 +633,19 @@ current_c120=$(( c120_end - (box_num - 1) * max_fill ))
 else
 current_c120=$(( c120_end - (box_num - 1) * (max_fill / per_stroke) ))
 fi
+
+echo "   time_input:  $time_input"
+echo "         c120:  $c120"
+echo "     c120_end:  $c120_end"
+echo " current_c120:  $current_c120"
+echo "first_end_sec:  $first_end_sec ($(to_hms $first_end_sec))"
+echo "      end_sec:  $end_sec ($(to_hms $end_sec))"
+echo "    tsikl_sec:  $tsikl_sec ($(to_hms $tsikl_sec))"
+echo "      end_sec:  $end_sec  ($(to_hms $end_sec))"
+echo "  current_end:  $current_end  ($(to_hms $current_end))"
+echo "Preform in box:  $current_fill"
+echo
+
 
 info
 echo "_________________________________"
