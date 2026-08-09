@@ -409,9 +409,9 @@ fi
 echo
 echo "какое число использовать?"
 
-echo " 1) ${color_L}${max_fill_less}  (-${octatok_less}) ${recomend_L}${NC}"
+echo " 1) ${color_L}${max_fill_less}  (+${octatok_less}) ${recomend_L}${NC}"
 echo " 2) ${YELLOW}$max_fill   - ты ввёл.${NC}"
-echo " 3) ${color_M}${max_fill_more}  (+${octatok_more}) ${recomend_M}${NC}"
+echo " 3) ${color_M}${max_fill_more}  (-${octatok_more}) ${recomend_M}${NC}"
 echo 
 echo " 4) изменить 'общее количествао приформ'"
 echo " 5) изменить 'число изделий за удар'"
@@ -664,7 +664,7 @@ err=0
 
 while [ $current_end -le $current_shift_end ]; do
 err=$((err+1))
-if [[ $err -gt $error_cikle ]];then echo "${RED}ERROR!${NC}"; info; exit 1; fi # защита от вечного цикла (неправильных цифр) 
+if [[ $err -gt $error_cikle ]];then echo "${RED}ERROR!${NC}"; info; echo "${RED}ERROR!${NC}";  exit 1; fi # защита от вечного цикла (неправильных цифр) 
 
 
 #time_now=$(date +%H:%M)
