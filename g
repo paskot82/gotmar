@@ -732,7 +732,7 @@ done
 fi	
 
 
-sec_mewok="$(echo "scale=2; ${max_fill} * ${massa_freform} / ${tsikl_sec} * ${massa_mewka} / 1000" | bc)
+sec_mewok="$(echo "scale=2; ${max_fill} * ${massa_freform} / ${tsikl_sec} * ${massa_mewka} / 1000" | bc)"
 echo "$sec_mewok"
 show_errors
 #info
