@@ -738,9 +738,13 @@ done
 fi	
 
 
-sec_mewok="$(echo "scale=2; ${max_fill} * ${massa_freform} / ${tsikl_sec} * ${massa_mewka} / 1000" | bc)"
-echo "$sec_mewok"
+sec_mewok="$(echo "scale=2; ${massa_mewka} / ${max_fill} * ${massa_freform}  ${tsikl_sec}" | bc)"
+min_mewok="$(echo "scale=4; $sec_mewok / 60" | bc)"
+echo "sek_mewok: $sec_mewok  (min_mewok: ${min_mewok})"
 echo "end_mewok: $end_mewok"
+echo "       - $(to_hms ${sek_mewok} |  $(to_hms ${end_mewok})"
+
+
 
 show_errors
 #info
