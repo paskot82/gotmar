@@ -1,10 +1,15 @@
 #!/bin/bash
+# v22.09.26_12:35
 # box.sh <номер_ящика> <время> [current_fill]
 
 all_installed="no"
 scip_install="no"
 language="np" # язык
 add_ydarov=3 # сколько ударов идет после "0" до смены ящика
+
+massa_freform="10.5"
+massa_mewka="1153.8"
+
 
 check_package() {
     local prog="$1"
@@ -725,5 +730,9 @@ if [ $current_c120 ];then                        current_c120=$((current_c120 + 
 fi	
 done	
 fi	
+
+
+sec_mewok="$(echo "scale=2; ${max_fill} * ${massa_freform} / ${tsikl_sec} * ${massa_mewka} / 1000" | bc)
+echo "$sec_mewok"
 show_errors
 #info
