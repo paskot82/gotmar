@@ -744,7 +744,7 @@ sec_mewok="$(echo "scale=2; ${massa_mewka} / ${max_fill} * ${massa_freform} * ${
 min_mewok="$(echo "scale=4; $sec_mewok / 60" | bc)"
 echo "sek_mewok: $sec_mewok  (min_mewok: ${min_mewok})"
 echo "end_mewok: $end_mewok"
-echo "       - $(to_hms ${sek_mewok} |  $(to_hms ${end_mewok})"
+echo " - $(to_hms ${sek_mewok}) |  $(to_hms ${end_mewok})"
 
 
 
