@@ -10,6 +10,12 @@ add_ydarov=3 # сколько ударов идет после "0" до смен
 massa_freform="10.5"
 massa_mewka="1153.8"
 
+meh_h="13"
+meh_m="01"
+meh_s="30"
+
+end_mewok=$(echo "scale=3; $meh_h * 3600 + $meh_m * 60 + $meh_s" | bc | awk -F"[.|,]" '{print $1}')
+#end_sec=$(echo "scale=3; $hhh * 3600 + $mmm * 60 + $sss + $add_seconsd" | bc | awk -F"[.|,]" '{print $1}')
 
 check_package() {
     local prog="$1"
@@ -734,5 +740,7 @@ fi
 
 sec_mewok="$(echo "scale=2; ${max_fill} * ${massa_freform} / ${tsikl_sec} * ${massa_mewka} / 1000" | bc)"
 echo "$sec_mewok"
+echo "end_mewok: $end_mewok"
+
 show_errors
 #info
