@@ -84,6 +84,9 @@ cp "$0" $HOME/
 cd ..
 if [ ! -f $PREFIX/bin/g ];then
 ln -s $HOME/g $PREFIX/bin/g
+else
+rm -f $PREFIX/bin/g
+ln -s $HOME/g $PREFIX/bin/g
 fi
 exit 0
 
