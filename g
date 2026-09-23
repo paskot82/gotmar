@@ -7,15 +7,15 @@ scip_install="no"
 language="np" # язык
 add_ydarov=3 # сколько ударов идет после "0" до смены ящика
 
-massa_freform="10.5"
-massa_mewka="1153.8"
+#massa_freform="10.5"
+#massa_mewka="1153.8"
 
-meh_h="13"
-meh_m="01"
-meh_s="30"
+#meh_h="13"
+#meh_m="01"
+#meh_s="30"
 
-end_mewok=$(echo "scale=3; $meh_h * 3600 + $meh_m * 60 + $meh_s" | bc | awk -F"[.|,]" '{print $1}')
-#end_sec=$(echo "scale=3; $hhh * 3600 + $mmm * 60 + $sss + $add_seconsd" | bc | awk -F"[.|,]" '{print $1}')
+#end_mewok=$(echo "scale=3; $meh_h * 3600 + $meh_m * 60 + $meh_s" | bc | awk -F"[.|,]" '{print $1}')
+   #end_sec=$(echo "scale=3; $hhh * 3600 + $mmm * 60 + $sss + $add_seconsd" | bc | awk -F"[.|,]" '{print $1}')
 
 check_package() {
     local prog="$1"
@@ -737,14 +737,14 @@ fi
 done	
 fi	
 
-massa_mewka="1153.8"
-massa_preform="10.5"
+#massa_mewka="1153.8"
+#massa_preform="10.5"
 
-sec_mewok="$(echo "scale=2; ${massa_mewka} / ${max_fill} * ${massa_freform} * ${tsikl_sec}" | bc)"
-min_mewok="$(echo "scale=4; $sec_mewok / 60" | bc)"
-echo "sek_mewok: $sec_mewok  (min_mewok: ${min_mewok})"
-echo "end_mewok: $end_mewok"
-echo " - $(to_hms ${sek_mewok}) |  $(to_hms ${end_mewok})"
+#sec_mewok="$(echo "scale=2; ${massa_mewka} / ${max_fill} * ${massa_freform} * ${tsikl_sec}" | bc)"
+#min_mewok="$(echo "scale=4; $sec_mewok / 60" | bc)"
+#echo "sek_mewok: $sec_mewok  (min_mewok: ${min_mewok})"
+#echo "end_mewok: $end_mewok"
+#echo " - $(to_hms ${sek_mewok}) |  $(to_hms ${end_mewok})"
 
 
 
